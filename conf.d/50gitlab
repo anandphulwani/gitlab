@@ -88,7 +88,7 @@ EOF"
 URL_WORKHORSE="https://gitlab.com/gitlab-org/gitlab-workhorse"
 exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
 cd $GIT_HOME/gitlab-workhorse
-exec_git "git checkout $VERSION_WORKHORSE"
+exec_git "git checkout -b $VERSION_WORKHORSE"
 cd ..
 exec_git "make -C $GIT_HOME/gitlab-workhorse"
 
