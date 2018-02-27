@@ -16,5 +16,5 @@ echo '4e6a0f828819e15d274ae58485585fc8b7caace0  ruby-2.3.6.tar.gz' | shasum -c -
 cd ruby-2.3.6
 ./configure --disable-install-rdoc
 make
-sudo make install
+make install
 
