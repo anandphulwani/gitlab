@@ -24,7 +24,7 @@ python-dev
 python-pygments
 
 libicu-dev
-libssl1.0-dev
+libssl-dev
 libxml2-dev
 libxslt1-dev
 libcurl4-openssl-dev
