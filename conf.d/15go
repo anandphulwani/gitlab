@@ -7,3 +7,5 @@ echo '1862f4c3d3907e59b04a757cfda0ea7aa9ef39274af99a784f5be843c80c6772  go1.8.3.
   tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
 ln -sf /usr/local/go/bin/{go,godoc,gofmt} /usr/local/bin/
 rm go1.8.3.linux-amd64.tar.gz
+
+
