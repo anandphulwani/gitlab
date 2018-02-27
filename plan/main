@@ -17,8 +17,8 @@ libkrb5-dev
 build-essential
 checkinstall
 
-ruby
-ruby-dev
+// ruby
+// ruby-dev
 
 python-dev
 python-pygments
