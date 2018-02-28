@@ -19,7 +19,8 @@ Pin-Priority: 1001
 EOF
 
 apt-cache policy mysql-server
-apt-get dist-upgrade
+apt-get -y upgrade mysql-server
+mysql --version
 
 /etc/init.d/mysql start
 
