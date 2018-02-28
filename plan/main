@@ -35,6 +35,9 @@ libffi-dev
 zlib1g-dev
 libyaml-dev
 
+libre2-1
+libre2-dev
+
 sudo
 
 // JS runtime for ExecJS
