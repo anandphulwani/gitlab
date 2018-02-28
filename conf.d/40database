@@ -20,7 +20,7 @@ EOF
 
 apt-cache policy mysql-server
 apt-get -y upgrade mysql-server
-mysql --version
+
 
 /etc/init.d/mysql start
 
@@ -31,3 +31,4 @@ MYSQL_ADMIN="mysqladmin --user=root --password=$MYSQL_PASS"
 $MYSQL_ADMIN create $DB_NAME --default-character-set=utf8;
 $MYSQL_BATCH --execute "grant all privileges on $DB_NAME.* to '$DB_USER'@localhost identified by '$DB_PASS'; flush privileges;"
 
+mysql --version
