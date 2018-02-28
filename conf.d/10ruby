@@ -14,7 +14,8 @@ make install
 
 # install gems
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
-gem install bundler --version '1.14.6' --no-ri --no-rdoc
+gem install bundler --no-ri --no-rdoc
+# --version '1.14.6' 
 gem install charlock_holmes --version $VERSION_CHARLOCK_HOLMES
 unset HTTP_PROXY
 
