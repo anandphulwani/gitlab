@@ -12,6 +12,15 @@ cd ruby-2.3.6
 make
 make install
 
+
+# install re2
+git clone https://code.googlesource.com/re2
+cd re2
+make
+make test
+make install
+
+
 # install gems
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
 gem install bundler --no-ri --no-rdoc
