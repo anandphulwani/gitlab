@@ -2,6 +2,25 @@
 
 source /usr/local/src/gitlab.conf
 
+sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
+
+cat >/etc/apt/sources.list.d/mysql.list<<EOF
+deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7
+deb http://repo.mysql.com/apt/ubuntu/ trusty connector-python-2.1
+EOF
+
+apt-get update
+
+cat >/etc/apt/preferences<<EOF
+
+Package: mysql*
+Pin: origin "repo.mysql.com"
+Pin-Priority: 1001
+EOF
+
+apt-cache policy mysql-server
+apt-get dist-upgrade
+
 /etc/init.d/mysql start
 
 MYSQL_BATCH="mysql --user=root --password=$MYSQL_PASS --batch"
