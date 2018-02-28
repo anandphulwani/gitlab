@@ -33,8 +33,17 @@ production: &base
   satellites:
     path: $GIT_HOME/gitlab-satellites/
 
-  gitlab-shell:
-    repos_path: $GIT_HOME/repositories/
+  gitaly:
+    enabled: true
+
+  repositories:
+    storages:
+      default:
+        path: $GIT_HOME/repositories/
+        gitaly_address: unix:$GIT_HOME/gitlab/tmp/sockets/private/gitaly.socket
+
+  gitlab_shell:
+    path: $GIT_HOME/gitlab-shell/
     hooks_path: $GIT_HOME/gitlab-shell/hooks/
     upload_pack: true
     receive_pack: true
