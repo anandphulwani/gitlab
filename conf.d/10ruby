@@ -2,12 +2,6 @@
 
 source /usr/local/src/gitlab.conf
 
-# install gems
-[ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
-gem install bundler --version '1.14.6' --no-ri --no-rdoc
-gem install charlock_holmes --version $VERSION_CHARLOCK_HOLMES
-unset HTTP_PROXY
-
 # update ruby
 mkdir /tmp/ruby && cd /tmp/ruby
 curl --remote-name --progress https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.6.tar.gz
@@ -17,4 +11,12 @@ cd ruby-2.3.6
 ./configure --disable-install-rdoc
 make
 make install
+
+# install gems
+[ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
+gem install bundler --version '1.14.6' --no-ri --no-rdoc
+gem install charlock_holmes --version $VERSION_CHARLOCK_HOLMES
+unset HTTP_PROXY
+
+
 
