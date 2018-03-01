@@ -1,7 +1,7 @@
 #include <turnkey/base>
 
-nginx
-redis-server
+// nginx
+// redis-server
 
 // mysql-server
 // libmysqlclient-dev
@@ -35,12 +35,17 @@ libffi-dev
 zlib1g-dev
 libyaml-dev
 
+libxslt-dev
+logrotate
+rsync
+python-docutils
+
 libre2-1
 libre2-dev
 
 sudo
 
 // JS runtime for ExecJS
-nodejs
+// nodejs
 
 python-bcrypt
