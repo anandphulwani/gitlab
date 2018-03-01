@@ -3,10 +3,10 @@
 nginx
 redis-server
 
-mysql-server
-libmysqlclient-dev
-libmysql++-dev
-webmin-mysql
+// mysql-server
+// libmysqlclient-dev
+// libmysql++-dev
+// webmin-mysql
 
 sqlite3
 libsqlite3-dev
