@@ -11,6 +11,15 @@ unset HTTP_PROXY
 
 cd $GIT_HOME/gitlab
 exec_git "git checkout $VERSION_GITLAB"
+echo "#################"
+echo "#################"
+echo "#################"
+echo "#################"
+echo "###   $VERSION_GITLAB   ###"
+exec_git "git rev-parse --abbrev-ref HEAD"
+echo "#################"
+echo "#################"
+echo "#################"
 
 # configure settings
 exec_git "cat >$GIT_HOME/gitlab/config/gitlab.yml<<EOF
@@ -98,8 +107,18 @@ URL_WORKHORSE="https://gitlab.com/gitlab-org/gitlab-workhorse"
 exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
 cd $GIT_HOME/gitlab-workhorse
 exec_git "git checkout $VERSION_WORKHORSE"
+echo "#################"
+echo "#################"
+echo "#################"
+echo "#################"
+echo "###   $VERSION_WORKHORSE   ###"
+exec_git "git rev-parse --abbrev-ref HEAD"
+echo "#################"
+echo "#################"
+echo "#################"
 cd ..
 exec_git "make -C $GIT_HOME/gitlab-workhorse"
+
 
 
 
