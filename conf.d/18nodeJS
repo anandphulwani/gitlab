@@ -2,10 +2,15 @@
 
 source /usr/local/src/gitlab.conf
 
-# Install/UpdateNodeJS
-# curl --location https://deb.nodesource.com/setup_7.x | sudo bash -
-# sudo apt-get install -y nodejs
+echo "########################################"
+echo "########################################"
+echo "########################################"
+echo "############# 18nodeJS #################"
+echo "########################################"
+echo "########################################"
+echo "########################################"
 
+# Install/UpdateNodeJS
 curl --location https://deb.nodesource.com/setup_7.x | sudo bash -
 sudo apt-get install -y nodejs
 
@@ -13,6 +18,5 @@ curl --silent --show-error https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-k
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update
 sudo apt-get install yarn
-
 
 sudo adduser --disabled-login --gecos 'GitLab' git
