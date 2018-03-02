@@ -11,6 +11,15 @@ unset HTTP_PROXY
 
 cd $GIT_HOME/gitlab
 
+
+exec_git "cp config/secrets.yml.example config/secrets.yml"
+exec_git "chmod 0600 config/secrets.yml"
+exec_git "mkdir public/uploads/"
+sudo chmod 0700 public/uploads
+sudo chmod -R u+rwX builds/
+sudo chmod -R u+rwX shared/artifacts/
+sudo chmod -R ug+rwX shared/pages/
+
 # configure settings
 exec_git "cat >/home/git/gitlab/config/gitlab.yml<<EOF
 # Gitlab application config file
