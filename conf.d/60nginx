@@ -33,15 +33,8 @@ ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 nginx -t
 service nginx restart
 
-
-
-chmod -R ug+rwX,o-rwx /home/git/repositories
-chmod -R ug-s /home/git/repositories
-find /home/git/repositories -type d -print0 | sudo xargs -0 chmod g+s
-
 rm /etc/nginx/sites-enabled/default
 mkdir /etc/nginx/include
-
 
 
 # Create file /etc/nginx/sites-available/gitlab
