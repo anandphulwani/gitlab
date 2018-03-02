@@ -6,21 +6,10 @@ source /usr/local/src/gitlab.conf
 URL="https://github.com/gitlabhq/gitlabhq.git"
 
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
-exec_git "git clone $URL $GIT_HOME/gitlab"
+exec_git "git clone $URL -b $VERSION_GITLAB $GIT_HOME/gitlab"
 unset HTTP_PROXY
 
 cd $GIT_HOME/gitlab
-exec_git "git checkout $VERSION_GITLAB"
-exec_git "git checkout -b $VERSION_GITLAB"
-echo "*****************"
-echo "*****************"
-echo "*****************"
-echo "*****************"
-echo "***   $VERSION_GITLAB   ***"
-exec_git "git rev-parse --abbrev-ref HEAD"
-echo "*****************"
-echo "*****************"
-echo "*****************"
 
 # configure settings
 exec_git "cat >/home/git/gitlab/config/gitlab.yml<<EOF
