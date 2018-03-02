@@ -162,7 +162,7 @@ exec_git "bundle install --deployment --without development test postgres aws ke
 exec_git "npm install"
 
 /etc/init.d/ssh start
-/etc/init.d/redis-server start
+# /etc/init.d/redis-server start
 
 exec_git "bundle exec rake \"gitlab:workhorse:install[$GIT_HOME/gitlab-workhorse]\" RAILS_ENV=production"
 
@@ -183,6 +183,7 @@ unset HTTP_PROXY
 
 # stop running services
 /etc/init.d/ssh stop
+# /etc/init.d/redis-server stop
 /etc/init.d/mysql stop
 
 # change ssh port configuration back
