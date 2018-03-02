@@ -1,0 +1,66 @@
+#!/bin/bash -ex
+
+source /usr/local/src/gitlab.conf
+
+
+echo "########################################"
+echo "########################################"
+echo "########################################"
+echo "############## 60nginx #################"
+echo "########################################"
+echo "########################################"
+echo "########################################"
+
+# install nginx
+
+cd /home/git/gitlab
+wget http://nginx.org/keys/nginx_signing.key
+apt-key add nginx_signing.key
+
+sh -c "cat >>/etc/apt/sources.list.d/sources.list<<EOF
+
+deb http://nginx.org/packages/mainline/debian/ jessie nginx
+deb-src http://nginx.org/packages/mainline/debian/ jessie nginx
+EOF"
+
+apt-get -y remove nginx
+apt-get -y update
+apt-get -y install nginx
+
+cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab
+ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
+
+nginx -t
+service nginx restart
+
+
+
+chmod -R ug+rwX,o-rwx /home/git/repositories
+chmod -R ug-s /home/git/repositories
+find /home/git/repositories -type d -print0 | sudo xargs -0 chmod g+s
+
+rm /etc/nginx/sites-enabled/default
+
+sh -c "cat >/etc/nginx/sites-available/gitlab<<EOF
+upstream gitlab {
+    server unix:/home/git/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
+}
+
+upstream gitlab-workhorse {
+    server unix:/home/git/gitlab/tmp/sockets/gitlab-workhorse.socket fail_timeout=0;
+}
+
+server {
+    listen 0.0.0.0:80;
+    include /etc/nginx/include/gitlab-proxy;
+}
+
+server {
+    listen 0.0.0.0:443 ssl;
+    include /etc/nginx/include/ssl;
+    include /etc/nginx/include/gitlab-proxy;
+}
+EOF"
+
+
+mkdir /etc/nginx/include
