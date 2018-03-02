@@ -40,7 +40,11 @@ chmod -R ug-s /home/git/repositories
 find /home/git/repositories -type d -print0 | sudo xargs -0 chmod g+s
 
 rm /etc/nginx/sites-enabled/default
+mkdir /etc/nginx/include
 
+
+
+# Create file /etc/nginx/sites-available/gitlab
 sh -c "cat >/etc/nginx/sites-available/gitlab<<EOF
 upstream gitlab {
     server unix:/home/git/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
@@ -62,8 +66,6 @@ server {
 }
 EOF"
 
-
-mkdir /etc/nginx/include
 
 
 
