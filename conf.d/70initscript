@@ -2,6 +2,14 @@
 
 source /usr/local/src/gitlab.conf
 
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "############ 70initscript ##############" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+
 cp /home/git/gitlab/lib/support/init.d/gitlab /etc/init.d/gitlab
 chown root:root /etc/init.d/gitlab
 
