@@ -2,6 +2,14 @@
 
 source /usr/local/src/gitlab.conf
 
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "################ 90finish ##############" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+
 service redis-server start
 exec_git "cd ~/gitlab && RAILS_ENV=production bin/background_jobs start"
 exec_git "bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production"
