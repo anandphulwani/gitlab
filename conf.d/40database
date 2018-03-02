@@ -20,7 +20,7 @@ deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7
 deb http://repo.mysql.com/apt/ubuntu/ trusty connector-python-2.1
 EOF
 
-apt-get update
+apt-get -y update
 
 cat >/etc/apt/preferences<<EOF
 
