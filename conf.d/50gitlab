@@ -23,47 +23,47 @@ echo "*****************"
 echo "*****************"
 
 # configure settings
-exec_git "cat >$GIT_HOME/gitlab/config/gitlab.yml<<EOF
+exec_git "cat >/home/git/gitlab/config/gitlab.yml<<EOF
 # Gitlab application config file
 
 production: &base
 
   gitlab:
-    host: $DOMAIN
+    host: localhost
     port: 80
     https: false
-    email_from: $ADMIN_MAIL
+    email_from: admin@example.com
     default_projects_limit: 10
     signup_enabled: false
     username_changing_enabled: true
-
+	
   gravatar:
     enabled: true
-
+	
   satellites:
-    path: $GIT_HOME/gitlab-satellites/
-
+    path: /home/git/gitlab-satellites/
+	
   gitaly:
+    client_path: /home/git/gitaly/bin
     enabled: true
-
+	
   repositories:
     storages:
       default:
-        path: $GIT_HOME/repositories/
-        gitaly_address: unix:$GIT_HOME/gitlab/tmp/sockets/private/gitaly.socket
+        path: /home/git/repositories/
+        gitaly_address: unix:/home/git/gitlab/tmp/sockets/private/gitaly.socket
 
   gitlab_shell:
-    path: $GIT_HOME/gitlab-shell/
-    hooks_path: $GIT_HOME/gitlab-shell/hooks/
+    path: /home/git/gitlab-shell/
+    hooks_path: /home/git/gitlab-shell/hooks/
     upload_pack: true
     receive_pack: true
     ssh_port: 22
-
+	
   git:
-    bin_path: /usr/bin/git
+    bin_path: /usr/local/bin/git
     max_size: 5242880 # 5.megabytes
     timeout: 10
-
 EOF"
 
 exec_git "mkdir -p $GIT_HOME/gitlab-satellites"
