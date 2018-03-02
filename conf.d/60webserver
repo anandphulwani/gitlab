@@ -7,6 +7,9 @@ cd $GIT_HOME/gitlab/config
 mv unicorn.rb.example unicorn.rb
 sed -i '/gitlab.socket/ s/$/, :umask => 007/' unicorn.rb
 
+cp initializers/rack_attack.rb.example initializers/rack_attack.rb
+cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 
