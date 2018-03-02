@@ -1,5 +1,11 @@
 #include <turnkey/base>
 
+
+mysql-server
+libmysqlclient-dev
+libmysql++-dev
+webmin-mysql
+
 sqlite3
 libsqlite3-dev
 
