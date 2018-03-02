@@ -109,15 +109,15 @@ exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
 cd $GIT_HOME/gitlab-workhorse
 exec_git "git checkout $VERSION_WORKHORSE"
 exec_git "git checkout -b $VERSION_WORKHORSE"
-echo "*****************"
-echo "*****************"
-echo "*****************"
-echo "*****************"
-echo "***   $VERSION_WORKHORSE   ***"
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "***   $VERSION_WORKHORSE   ***" >/dev/null 2>&1
 exec_git "git rev-parse --abbrev-ref HEAD"
-echo "*****************"
-echo "*****************"
-echo "*****************"
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
 cd ..
 exec_git "make -C $GIT_HOME/gitlab-workhorse"
 
