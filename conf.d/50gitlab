@@ -150,14 +150,27 @@ sed -i "s|ssh_port: 22|ssh_port: 2222|" $GIT_HOME/gitlab/config/gitlab.yml
 # install
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
 cd $GIT_HOME/gitlab
-exec_git "bundle install --deployment --without development test postgres"
+exec_git "bundle install --deployment --without development test postgres aws kerberos"
 exec_git "npm install"
 
 /etc/init.d/ssh start
 /etc/init.d/redis-server start
+
+exec_git "bundle exec rake \"gitlab:workhorse:install[$GIT_HOME/gitlab-workhorse]\" RAILS_ENV=production"
+
+sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab
+sudo chmod 0700 /home/git/gitlab/tmp/sockets/private
+
+sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+
+
+
 exec_git "bundle exec rake force=yes gitlab:setup RAILS_ENV=production"
 exec_git "bundle exec rake sidekiq:start RAILS_ENV=production"
+exec_git "bundle exec rake add_limits_mysql RAILS_ENV=production"
+exec_git "exec rake \"gitlab:gitaly:install[/home/git/gitaly]\" RAILS_ENV=production"
 exec_git "bundle exec rake gitlab:env:info RAILS_ENV=production"
+exec_git "yarn install --production --pure-lockfile"
 unset HTTP_PROXY
 
 # stop running services
@@ -171,5 +184,5 @@ sed -i "s|port 2222|port 22|" $GIT_HOME/.ssh/config
 sed -i "s|ssh_port: 2222|ssh_port: 22|" $GIT_HOME/gitlab/config/gitlab.yml
 
 ## TESTING
-#sudo -u git -H bundle exec rake gitlab:check RAILS_ENV=production
+exec_git "bundle exec rake gitlab:check RAILS_ENV=production"
 
