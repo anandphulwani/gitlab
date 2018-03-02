@@ -7,21 +7,20 @@ source /usr/local/src/gitlab.conf
 cd $GIT_HOME/gitaly
 exec_git "git checkout $VERSION_GITALY_SERVER"
 exec_git "git checkout -b $VERSION_GITALY_SERVER"
-echo "#################"
-echo "#################"
-echo "#################"
-echo "#################"
-echo "###   $VERSION_GITALY_SERVER   ###"
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "***   $VERSION_GITALY_SERVER   ***" >/dev/null 2>&1
 exec_git "git rev-parse --abbrev-ref HEAD"
-echo "#################"
-echo "#################"
-echo "#################"
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
+cat "*****************" >/dev/null 2>&1
 cd $GIT_HOME
 
 
 # Fetch Gitaly source with Git and compile with Go
 exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
-exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly,https://example.com/gitaly.git]\" RAILS_ENV=production"
 
 # Restrict Gitaly socket access
 sudo chmod 0700 $GIT_HOME/gitlab/tmp/sockets/private
