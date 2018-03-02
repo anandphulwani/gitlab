@@ -72,11 +72,13 @@ exec_git "cat >$GIT_HOME/gitlab/config/database.yml<<EOF
 production:
   adapter: mysql2
   encoding: utf8
+  collation: utf8_general_ci
   reconnect: false
+  host: localhost
   database: $DB_NAME
   username: $DB_USER
   password: $DB_PASS
-  pool: 5
+  pool: 10
 
 EOF"
 chmod 640 $GIT_HOME/gitlab/config/database.yml
