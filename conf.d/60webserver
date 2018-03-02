@@ -2,6 +2,15 @@
 
 source /usr/local/src/gitlab.conf
 
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "############ 60webserver ###############" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+
+
 # setup unicorn and nginx
 cd $GIT_HOME/gitlab/config
 mv unicorn.rb.example unicorn.rb
