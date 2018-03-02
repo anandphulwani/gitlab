@@ -173,7 +173,6 @@ unset HTTP_PROXY
 
 # stop running services
 /etc/init.d/ssh stop
-/etc/init.d/redis-server stop
 /etc/init.d/mysql stop
 
 # change ssh port configuration back
