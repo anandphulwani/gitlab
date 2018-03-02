@@ -38,6 +38,8 @@ libz-dev
 python-docutils
 python-bcrypt
 
+postfix
+
 # Extras
 logrotate
 rsync
