@@ -16,7 +16,7 @@ libicu-dev
 libssl-dev
 libxml2-dev
 libxslt1-dev
-# libxslt-dev
+// libxslt-dev
 libcurl4-openssl-dev
 libreadline-gplv2-dev
 libgdbm-dev
@@ -40,6 +40,6 @@ python-bcrypt
 
 postfix
 
-# Extras
+// Extras
 logrotate
 rsync
