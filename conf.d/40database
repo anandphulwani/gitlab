@@ -29,8 +29,10 @@ Pin: origin "repo.mysql.com"
 Pin-Priority: 1001
 EOF
 
+/etc/init.d/mysql stop
+
 apt-cache policy mysql-server
-apt-get install -y mysql-server mysql-client libmysqlclient-dev
+apt-get upgrade -y mysql-server mysql-client libmysqlclient-dev
 
 /etc/init.d/mysql start
 
