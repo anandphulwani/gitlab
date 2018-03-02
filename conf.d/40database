@@ -2,6 +2,17 @@
 
 source /usr/local/src/gitlab.conf
 
+
+echo "########################################"
+echo "########################################"
+echo "########################################"
+echo "############# 40database ###############"
+echo "########################################"
+echo "########################################"
+echo "########################################"
+
+
+#Install mysql
 sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
 
 cat >/etc/apt/sources.list.d/mysql.list<<EOF
