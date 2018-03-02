@@ -2,6 +2,14 @@
 
 source /usr/local/src/gitlab.conf
 
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "################ 80redis ###############" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+
 # make Redis listen on Unix socket
 echo 'include /etc/redis/unixsocket.conf' >> /etc/redis/redis.conf
 
