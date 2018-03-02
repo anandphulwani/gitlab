@@ -19,4 +19,3 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn
 
-sudo adduser --disabled-login --gecos 'GitLab' git
