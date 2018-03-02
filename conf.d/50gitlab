@@ -2,6 +2,16 @@
 
 source /usr/local/src/gitlab.conf
 
+
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "############# 50gitlab #################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+cat "########################################" >/dev/null 2>&1
+
+
 # download and checkout specified version
 URL="https://github.com/gitlabhq/gitlabhq.git"
 
