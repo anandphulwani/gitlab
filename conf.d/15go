@@ -2,6 +2,15 @@
 
 source /usr/local/src/gitlab.conf
 
+echo "########################################"
+echo "########################################"
+echo "########################################"
+echo "############### 15go ###################"
+echo "########################################"
+echo "########################################"
+echo "########################################"
+
+# update go
 rm -rf /usr/local/go
 curl --remote-name --progress https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
 echo '1862f4c3d3907e59b04a757cfda0ea7aa9ef39274af99a784f5be843c80c6772  go1.8.3.linux-amd64.tar.gz' | shasum -a256 -c - && \
