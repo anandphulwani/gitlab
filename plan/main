@@ -1,13 +1,5 @@
 #include <turnkey/base>
 
-// nginx
-// redis-server
-
-// mysql-server
-// libmysqlclient-dev
-// libmysql++-dev
-// webmin-mysql
-
 sqlite3
 libsqlite3-dev
 
@@ -17,9 +9,6 @@ libkrb5-dev
 build-essential
 checkinstall
 
-// ruby
-// ruby-dev
-
 python-dev
 python-pygments
 
@@ -27,6 +16,7 @@ libicu-dev
 libssl-dev
 libxml2-dev
 libxslt1-dev
+# libxslt-dev
 libcurl4-openssl-dev
 libreadline-gplv2-dev
 libgdbm-dev
@@ -35,17 +25,19 @@ libffi-dev
 zlib1g-dev
 libyaml-dev
 
-libxslt-dev
-logrotate
-rsync
-python-docutils
-
 libre2-1
 libre2-dev
 
 sudo
 
-// JS runtime for ExecJS
-// nodejs
+libcurl4-openssl-dev
+libexpat1-dev
+gettext
+libz-dev
 
+python-docutils
 python-bcrypt
+
+# Extras
+logrotate
+rsync
