@@ -21,7 +21,7 @@ mkdir /var/run/redis
 chown redis:redis /var/run/redis
 chmod 755 /var/run/redis
 echo 'd  /var/run/redis  0755  redis  redis  10d  -' | sudo tee -a /etc/tmpfiles.d/redis.conf
-sudo service redis-server restart
+sudo service redis-server start
 
 # make Redis listen on Unix socket
 #echo 'include /etc/redis/unixsocket.conf' >> /etc/redis/redis.conf
