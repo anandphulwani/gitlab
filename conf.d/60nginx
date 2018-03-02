@@ -33,6 +33,7 @@ ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 nginx -t
 service nginx restart
 
+rm /etc/nginx/conf.d/default.conf
 rm /etc/nginx/sites-enabled/default
 mkdir /etc/nginx/include
 
