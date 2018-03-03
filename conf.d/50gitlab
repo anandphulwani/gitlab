@@ -69,7 +69,7 @@ production: &base
     ssh_port: 22
 
   git:
-    bin_path: /usr/local/bin/git
+    bin_path: /usr/bin/git
     max_size: 5242880 # 5.megabytes
     timeout: 10
 EOF"
