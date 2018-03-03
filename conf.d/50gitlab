@@ -13,7 +13,8 @@ echo "########################################">/dev/null 2>&1
 
 
 # download and checkout specified version
-URL="https://github.com/gitlabhq/gitlabhq.git"
+# URL="https://github.com/gitlabhq/gitlabhq.git"
+URL="http://192.168.200.120/gitlab-admin/gitlabtest.git"
 
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
 exec_git "git clone $URL -b $VERSION_GITLAB $GIT_HOME/gitlab"
