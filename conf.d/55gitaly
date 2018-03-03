@@ -2,28 +2,28 @@
 
 source /usr/local/src/gitlab.conf
 
-cat "########################################" >/dev/null 2>&1
-cat "########################################" >/dev/null 2>&1
-cat "########################################" >/dev/null 2>&1
-cat "############# 55gitaly #################" >/dev/null 2>&1
-cat "########################################" >/dev/null 2>&1
-cat "########################################" >/dev/null 2>&1
-cat "########################################" >/dev/null 2>&1
+cat "########################################" > /home/log.txt
+cat "########################################" > /home/log.txt
+cat "########################################" > /home/log.txt
+cat "############# 55gitaly #################" > /home/log.txt
+cat "########################################" > /home/log.txt
+cat "########################################" > /home/log.txt
+cat "########################################" > /home/log.txt
 
 
 # Install Gitaly
 cd $GIT_HOME/gitaly
 exec_git "git checkout $VERSION_GITALY_SERVER"
 exec_git "git checkout -b $VERSION_GITALY_SERVER"
-cat "*****************" >/dev/null 2>&1
-cat "*****************" >/dev/null 2>&1
-cat "*****************" >/dev/null 2>&1
-cat "*****************" >/dev/null 2>&1
-cat "***   $VERSION_GITALY_SERVER   ***" >/dev/null 2>&1
+cat "*****************" > /home/log.txt
+cat "*****************" > /home/log.txt
+cat "*****************" > /home/log.txt
+cat "*****************" > /home/log.txt
+cat "***   $VERSION_GITALY_SERVER   ***" > /home/log.txt
 exec_git "git rev-parse --abbrev-ref HEAD"
-cat "*****************" >/dev/null 2>&1
-cat "*****************" >/dev/null 2>&1
-cat "*****************" >/dev/null 2>&1
+cat "*****************" > /home/log.txt
+cat "*****************" > /home/log.txt
+cat "*****************" > /home/log.txt
 cd $GIT_HOME
 
 
