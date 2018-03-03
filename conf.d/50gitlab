@@ -201,6 +201,9 @@ echo "########################################">/dev/null 2>&1
 echo "########################################">/dev/null 2>&1
 
 
+# Fetch Gitaly source with Git and compile with Go
+exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
+
 # Install Gitaly
 cd $GIT_HOME/gitaly
 exec_git "git checkout $VERSION_GITALY_SERVER"
@@ -213,11 +216,8 @@ exec_git "git rev-parse --abbrev-ref HEAD"
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
+exec_git "make"
 cd $GIT_HOME
-
-
-# Fetch Gitaly source with Git and compile with Go
-exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
 
 # Restrict Gitaly socket access
 sudo chmod 0700 $GIT_HOME/gitlab/tmp/sockets/private
