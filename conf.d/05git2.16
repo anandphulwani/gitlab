@@ -13,7 +13,8 @@ echo "########################################">/dev/null 2>&1
 
 # install/update git
 cd /tmp
-curl --remote-name --progress https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz
+# curl --remote-name --progress https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz
+curl --remote-name --progress http://192.168.200.143/_removeit/git-2.16.2.tar.gz
 echo '9acc4339b7a2ab484eea69d705923271682b7058015219cf5a7e6ed8dee5b5fb  git-2.16.2.tar.gz' | shasum -a256 -c - && \
   tar -xzf git-2.16.2.tar.gz
 cd git-2.16.2/
