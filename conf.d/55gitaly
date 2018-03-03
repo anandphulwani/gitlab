@@ -19,7 +19,7 @@ echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
-cat "***   $VERSION_GITALY_SERVER   ***">/dev/null 2>&1
+echo "***   $VERSION_GITALY_SERVER   ***">/dev/null 2>&1
 exec_git "git rev-parse --abbrev-ref HEAD"
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1

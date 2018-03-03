@@ -123,7 +123,7 @@ echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
-cat "***   $VERSION_WORKHORSE   ***">/dev/null 2>&1
+echo "***   $VERSION_WORKHORSE   ***">/dev/null 2>&1
 exec_git "git rev-parse --abbrev-ref HEAD"
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
