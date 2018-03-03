@@ -33,6 +33,6 @@ usermod -a -G redis $GIT_USER
 #    echo "$i: unix:/var/run/redis/redis.sock" >> /home/git/gitlab/config/resque.yml
 #done
 
-
+cd $GIT_HOME/gitlab
 exec_git "bundle exec rake gitlab:shell:install REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production SKIP_STORAGE_VALIDATION=true"
 
