@@ -176,7 +176,6 @@ sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
 exec_git "bundle exec rake force=yes gitlab:setup RAILS_ENV=production"
 exec_git "bundle exec rake sidekiq:start RAILS_ENV=production"
 exec_git "bundle exec rake add_limits_mysql RAILS_ENV=production"
-exec_git "bundle exec rake \"gitlab:gitaly:install[/home/git/gitaly]\" RAILS_ENV=production"
 exec_git "bundle exec rake gitlab:env:info RAILS_ENV=production"
 exec_git "yarn install --production --pure-lockfile"
 unset HTTP_PROXY
@@ -190,7 +189,3 @@ unset HTTP_PROXY
 sed -i "s|Port 2222|Port 22|" /etc/ssh/sshd_config
 sed -i "s|port 2222|port 22|" $GIT_HOME/.ssh/config
 sed -i "s|ssh_port: 2222|ssh_port: 22|" $GIT_HOME/gitlab/config/gitlab.yml
-
-## TESTING
-exec_git "bundle exec rake gitlab:check RAILS_ENV=production"
-

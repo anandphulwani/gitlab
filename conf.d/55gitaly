@@ -14,7 +14,6 @@ echo "########################################">/dev/null 2>&1
 # Install Gitaly
 cd $GIT_HOME/gitaly
 exec_git "git checkout $VERSION_GITALY_SERVER"
-exec_git "git checkout -b $VERSION_GITALY_SERVER"
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1

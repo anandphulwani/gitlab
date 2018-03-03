@@ -10,12 +10,19 @@ echo "########################################">/dev/null 2>&1
 echo "########################################">/dev/null 2>&1
 echo "########################################">/dev/null 2>&1
 
+
+service ssh start
 service redis-server start
+service mysql start
 exec_git "cd ~/gitlab && RAILS_ENV=production bin/background_jobs start"
 exec_git "bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production"
 exec_git "RAILS_ENV=production bundle exec rake assets:precompile webpack:compile"
+
+## TESTING
 exec_git "bundle exec rake gitlab:check RAILS_ENV=production"
+service ssh stop
 service redis-server stop
+service mysql stop
 
 # cleanup
 rm -rf $SRC/*
