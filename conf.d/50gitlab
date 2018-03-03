@@ -44,17 +44,17 @@ production: &base
     default_projects_limit: 10
     signup_enabled: false
     username_changing_enabled: true
-	
+
   gravatar:
     enabled: true
-	
+
   satellites:
     path: /home/git/gitlab-satellites/
-	
+
   gitaly:
     client_path: /home/git/gitaly/bin
     enabled: true
-	
+
   repositories:
     storages:
       default:
@@ -67,7 +67,7 @@ production: &base
     upload_pack: true
     receive_pack: true
     ssh_port: 22
-	
+
   git:
     bin_path: /usr/local/bin/git
     max_size: 5242880 # 5.megabytes
