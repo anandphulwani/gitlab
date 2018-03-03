@@ -176,7 +176,7 @@ sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
 exec_git "bundle exec rake force=yes gitlab:setup RAILS_ENV=production"
 exec_git "bundle exec rake sidekiq:start RAILS_ENV=production"
 exec_git "bundle exec rake add_limits_mysql RAILS_ENV=production"
-exec_git "exec rake \"gitlab:gitaly:install[/home/git/gitaly]\" RAILS_ENV=production"
+exec_git "bundle exec rake \"gitlab:gitaly:install[/home/git/gitaly]\" RAILS_ENV=production"
 exec_git "bundle exec rake gitlab:env:info RAILS_ENV=production"
 exec_git "yarn install --production --pure-lockfile"
 unset HTTP_PROXY
