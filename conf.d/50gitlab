@@ -3,13 +3,13 @@
 source /usr/local/src/gitlab.conf
 
 
-cat "########################################" > /home/log.txt
-cat "########################################" > /home/log.txt
-cat "########################################" > /home/log.txt
-cat "############# 50gitlab #################" > /home/log.txt
-cat "########################################" > /home/log.txt
-cat "########################################" > /home/log.txt
-cat "########################################" > /home/log.txt
+cat "########################################" >> log.txt
+cat "########################################" >> log.txt
+cat "########################################" >> log.txt
+cat "############# 50gitlab #################" >> log.txt
+cat "########################################" >> log.txt
+cat "########################################" >> log.txt
+cat "########################################" >> log.txt
 
 
 # download and checkout specified version
@@ -119,15 +119,15 @@ exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
 cd $GIT_HOME/gitlab-workhorse
 exec_git "git checkout $VERSION_WORKHORSE"
 exec_git "git checkout -b $VERSION_WORKHORSE"
-cat "*****************" > /home/log.txt
-cat "*****************" > /home/log.txt
-cat "*****************" > /home/log.txt
-cat "*****************" > /home/log.txt
-cat "***   $VERSION_WORKHORSE   ***" > /home/log.txt
+cat "*****************" > log.txt
+cat "*****************" > log.txt
+cat "*****************" > log.txt
+cat "*****************" > log.txt
+cat "***   $VERSION_WORKHORSE   ***" > log.txt
 exec_git "git rev-parse --abbrev-ref HEAD"
-cat "*****************" > /home/log.txt
-cat "*****************" > /home/log.txt
-cat "*****************" > /home/log.txt
+cat "*****************" > log.txt
+cat "*****************" > log.txt
+cat "*****************" > log.txt
 cd ..
 exec_git "make -C $GIT_HOME/gitlab-workhorse"
 
