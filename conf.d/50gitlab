@@ -206,7 +206,8 @@ exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV
 
 # Install Gitaly
 cd $GIT_HOME/gitaly
-exec_git "git checkout $VERSION_GITALY_SERVER"
+exec_git "git fetch --all --tags"
+exec_git "git checkout v$VERSION_GITALY_SERVER"
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
 echo "*****************">/dev/null 2>&1
