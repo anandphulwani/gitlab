@@ -191,3 +191,36 @@ unset HTTP_PROXY
 sed -i "s|Port 2222|Port 22|" /etc/ssh/sshd_config
 sed -i "s|port 2222|port 22|" $GIT_HOME/.ssh/config
 sed -i "s|ssh_port: 2222|ssh_port: 22|" $GIT_HOME/gitlab/config/gitlab.yml
+
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "############# 55gitaly #################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+
+
+# Install Gitaly
+cd $GIT_HOME/gitaly
+exec_git "git checkout $VERSION_GITALY_SERVER"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "***   $VERSION_GITALY_SERVER   ***">/dev/null 2>&1
+exec_git "git rev-parse --abbrev-ref HEAD"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+cd $GIT_HOME
+
+
+# Fetch Gitaly source with Git and compile with Go
+exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
+
+# Restrict Gitaly socket access
+sudo chmod 0700 $GIT_HOME/gitlab/tmp/sockets/private
+sudo chown $GIT_USER $GIT_HOME/gitlab/tmp/sockets/private
+
+
