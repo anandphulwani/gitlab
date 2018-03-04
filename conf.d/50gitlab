@@ -1,0 +1,227 @@
+#!/bin/bash -ex
+
+source /usr/local/src/gitlab.conf
+
+
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "############# 50gitlab #################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+
+
+# download and checkout specified version
+# URL="https://github.com/gitlabhq/gitlabhq.git"
+URL="http://192.168.200.120/gitlab-admin/gitlabtest.git"
+
+[ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
+exec_git "git clone $URL -b $VERSION_GITLAB $GIT_HOME/gitlab"
+unset HTTP_PROXY
+
+cd $GIT_HOME/gitlab
+
+
+exec_git "cp config/secrets.yml.example config/secrets.yml"
+exec_git "chmod 0600 config/secrets.yml"
+exec_git "mkdir public/uploads/"
+sudo chmod 0700 public/uploads
+sudo chmod -R u+rwX builds/
+sudo chmod -R u+rwX shared/artifacts/
+sudo chmod -R ug+rwX shared/pages/
+
+# configure settings
+exec_git "cat >/home/git/gitlab/config/gitlab.yml<<EOF
+# Gitlab application config file
+
+production: &base
+
+  gitlab:
+    host: localhost
+    port: 80
+    https: false
+    email_from: admin@example.com
+    default_projects_limit: 10
+    signup_enabled: false
+    username_changing_enabled: true
+
+  gravatar:
+    enabled: true
+
+  satellites:
+    path: /home/git/gitlab-satellites/
+
+  gitaly:
+    client_path: /home/git/gitaly/bin
+    enabled: true
+
+  repositories:
+    storages:
+      default:
+        path: /home/git/repositories/
+        gitaly_address: unix:/home/git/gitlab/tmp/sockets/private/gitaly.socket
+
+  gitlab_shell:
+    path: /home/git/gitlab-shell/
+    hooks_path: /home/git/gitlab-shell/hooks/
+    upload_pack: true
+    receive_pack: true
+    ssh_port: 22
+
+  git:
+    bin_path: /usr/bin/git
+    max_size: 5242880 # 5.megabytes
+    timeout: 10
+EOF"
+
+exec_git "mkdir -p $GIT_HOME/gitlab-satellites"
+
+exec_git "cat >$GIT_HOME/gitlab/config/database.yml<<EOF
+production:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: false
+  host: localhost
+  database: $DB_NAME
+  username: $DB_USER
+  password: $DB_PASS
+  pool: 10
+
+EOF"
+chmod 640 $GIT_HOME/gitlab/config/database.yml
+
+exec_git "cat >$GIT_HOME/gitlab/db/fixtures/production/001_admin.rb<<EOF
+admin = User.create(
+  :email => \"$ADMIN_MAIL\",
+  :name => \"Administrator\",
+  :username => \"gitlab-admin\",
+  :password => \"$ADMIN_PASS\",
+  :password_confirmation => \"$ADMIN_PASS\"
+)
+
+admin.projects_limit = 10000
+admin.admin = true
+admin.confirmed_at = admin.confirmation_sent_at
+admin.save!
+
+EOF"
+
+exec_git "cat >>$GIT_HOME/gitlab/app/views/layouts/application.html.haml<<EOF
+<div id='turnkey-credit' style='font-size:10px;text-align:center;padding-top:20px'><a href='https://www.turnkeylinux.org/gitlab'>GitLab Appliance</a> - Powered by <a href='https://www.turnkeylinux.org'>TurnKey Linux</a></div>
+EOF"
+
+
+
+# fetch and compile gitlab-workhorse
+# URL_WORKHORSE="https://gitlab.com/gitlab-org/gitlab-workhorse"
+URL_WORKHORSE="http://192.168.200.120/gitlab-admin/gitlab-workhorse.git"
+exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
+cd $GIT_HOME/gitlab-workhorse
+exec_git "git checkout $VERSION_WORKHORSE"
+exec_git "git checkout -b $VERSION_WORKHORSE"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "***   $VERSION_WORKHORSE   ***">/dev/null 2>&1
+exec_git "git rev-parse --abbrev-ref HEAD"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+cd ..
+exec_git "make -C $GIT_HOME/gitlab-workhorse"
+
+
+
+
+# set permissions
+chown -R $GIT_USER $GIT_HOME/gitlab/log
+chown -R $GIT_USER $GIT_HOME/gitlab/tmp
+chmod -R u+rwX $GIT_HOME/gitlab/log
+chmod -R u+rwX $GIT_HOME/gitlab/tmp
+
+mkdir -p $GIT_HOME/repositories
+chown -R $GIT_USER $GIT_HOME/repositories
+chmod -R ug+rwX,o-rwx $GIT_HOME/repositories
+chmod -R ug-s $GIT_HOME/repositories
+chmod u+rwx,g=rx,o-rwx $GIT_HOME/gitlab-satellites
+find $GIT_HOME/repositories -type d -print0 | xargs -0 chmod g+s
+
+# recommended in installation guide
+ln -s /usr/bin/python /usr/local/bin/python2
+
+# temporarily change ssh port as to not conflict with build system
+sed -i "s|Port 22|Port 2222|" /etc/ssh/sshd_config
+sed -i "s|Port 22|Port 2222|" $GIT_HOME/.ssh/config
+sed -i "s|ssh_port: 22|ssh_port: 2222|" $GIT_HOME/gitlab/config/gitlab.yml
+
+# install
+[ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
+cd $GIT_HOME/gitlab
+exec_git "bundle install --deployment --without development test postgres aws kerberos"
+exec_git "npm install"
+
+/etc/init.d/ssh start
+# /etc/init.d/redis-server start
+
+exec_git "bundle exec rake \"gitlab:workhorse:install[$GIT_HOME/gitlab-workhorse]\" RAILS_ENV=production"
+
+sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab
+sudo chmod 0700 /home/git/gitlab/tmp/sockets/private
+
+sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+
+
+
+exec_git "bundle exec rake force=yes gitlab:setup RAILS_ENV=production"
+exec_git "bundle exec rake sidekiq:start RAILS_ENV=production"
+exec_git "bundle exec rake add_limits_mysql RAILS_ENV=production"
+exec_git "bundle exec rake gitlab:env:info RAILS_ENV=production"
+exec_git "yarn install --production --pure-lockfile"
+unset HTTP_PROXY
+
+# stop running services
+/etc/init.d/ssh stop
+# /etc/init.d/redis-server stop
+/etc/init.d/mysql stop
+
+# change ssh port configuration back
+sed -i "s|Port 2222|Port 22|" /etc/ssh/sshd_config
+sed -i "s|port 2222|port 22|" $GIT_HOME/.ssh/config
+sed -i "s|ssh_port: 2222|ssh_port: 22|" $GIT_HOME/gitlab/config/gitlab.yml
+
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "############# 55gitaly #################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+echo "########################################">/dev/null 2>&1
+
+
+# Fetch Gitaly source with Git and compile with Go
+exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
+
+# Install Gitaly
+cd $GIT_HOME/gitaly
+exec_git "git fetch --all --tags"
+exec_git "git checkout v$VERSION_GITALY_SERVER"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "***   $VERSION_GITALY_SERVER   ***">/dev/null 2>&1
+exec_git "git rev-parse --abbrev-ref HEAD"
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+echo "*****************">/dev/null 2>&1
+exec_git "make"
+cd $GIT_HOME
+
+# Restrict Gitaly socket access
+sudo chmod 0700 $GIT_HOME/gitlab/tmp/sockets/private
+sudo chown $GIT_USER $GIT_HOME/gitlab/tmp/sockets/private
+
+
