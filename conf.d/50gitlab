@@ -224,4 +224,7 @@ cd $GIT_HOME
 sudo chmod 0700 $GIT_HOME/gitlab/tmp/sockets/private
 sudo chown $GIT_USER $GIT_HOME/gitlab/tmp/sockets/private
 
+# Change gitlab database options
+sed -i "s/, force: :cascade/, force: :cascade, options: 'ROW_FORMAT=DYNAMIC'/g" $GIT_HOME/gitlab/db/schema.rb 
+
 
