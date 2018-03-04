@@ -40,7 +40,7 @@ echo "########################################">/dev/null 2>&1
 
 # update ruby
 
-apt-get install -y ruby
+apt-get install -y ruby ruby2.3-dev
 apt-get clean all
 
 # mkdir /tmp/ruby && cd /tmp/ruby
