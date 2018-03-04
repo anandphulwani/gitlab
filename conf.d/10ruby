@@ -14,13 +14,19 @@ echo "########################################">/dev/null 2>&1
 # install/update git
 cd /tmp
 # curl --remote-name --progress https://www.kernel.org/pub/software/scm/git/git-2.16.2.tar.gz
-curl --remote-name --progress http://192.168.200.143/_removeit/git-2.16.2.tar.gz
-echo '9acc4339b7a2ab484eea69d705923271682b7058015219cf5a7e6ed8dee5b5fb  git-2.16.2.tar.gz' | shasum -a256 -c - && \
-  tar -xzf git-2.16.2.tar.gz
-cd git-2.16.2/
-./configure
-make prefix=/usr/local all
-sudo make prefix=/usr/local install
+
+echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list 
+apt-get update
+apt-get install -y git
+apt-get clean all
+
+# curl --remote-name --progress http://192.168.200.143/_removeit/git-2.16.2.tar.gz
+# echo '9acc4339b7a2ab484eea69d705923271682b7058015219cf5a7e6ed8dee5b5fb  git-2.16.2.tar.gz' | shasum -a256 -c - && \
+#  tar -xzf git-2.16.2.tar.gz
+# cd git-2.16.2/
+# ./configure
+# make prefix=/usr/local all
+# sudo make prefix=/usr/local install
 
 
 echo "########################################">/dev/null 2>&1
@@ -33,15 +39,19 @@ echo "########################################">/dev/null 2>&1
 
 
 # update ruby
-mkdir /tmp/ruby && cd /tmp/ruby
+
+apt-get install -y ruby
+apt-get clean all
+
+# mkdir /tmp/ruby && cd /tmp/ruby
 # curl --remote-name --progress https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.6.tar.gz
-curl --remote-name --progress http://192.168.200.143/_removeit/ruby-2.3.6.tar.gz
-echo '4e6a0f828819e15d274ae58485585fc8b7caace0  ruby-2.3.6.tar.gz' | shasum -c - && \
- tar xzf ruby-2.3.6.tar.gz
-cd ruby-2.3.6
-./configure --disable-install-rdoc
-make
-make install
+# curl --remote-name --progress http://192.168.200.143/_removeit/ruby-2.3.6.tar.gz
+# echo '4e6a0f828819e15d274ae58485585fc8b7caace0  ruby-2.3.6.tar.gz' | shasum -c - && \
+# tar xzf ruby-2.3.6.tar.gz
+# cd ruby-2.3.6
+# ./configure --disable-install-rdoc
+# make
+# make install
 
 
 # install re2
