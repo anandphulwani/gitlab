@@ -13,29 +13,29 @@ echo "########################################">/dev/null 2>&1
 
 
 #Install mysql
-sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
+#sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5072E1F5
 
-cat >/etc/apt/sources.list.d/mysql.list<<EOF
-deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7
-deb http://repo.mysql.com/apt/ubuntu/ trusty connector-python-2.1
-EOF
+#cat >/etc/apt/sources.list.d/mysql.list<<EOF
+#deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7
+#deb http://repo.mysql.com/apt/ubuntu/ trusty connector-python-2.1
+#EOF
 
-apt-get -y update
+#apt-get -y update
 
-cat >/etc/apt/preferences<<EOF
+#cat >/etc/apt/preferences<<EOF
+#
+#Package: mysql*
+#Pin: origin "repo.mysql.com"
+#Pin-Priority: 1001
+#EOF
 
-Package: mysql*
-Pin: origin "repo.mysql.com"
-Pin-Priority: 1001
-EOF
+#/etc/init.d/mysql stop
 
-/etc/init.d/mysql stop
-
-apt-cache policy mysql-server
-apt-get upgrade -y mysql-server mysql-client libmysqlclient-dev
+#apt-cache policy mysql-server
+#apt-get upgrade -y mysql-server mysql-client libmysqlclient-dev
 
 /etc/init.d/mysql start
-mysql_upgrade --user=root --password=$MYSQL_PASS
+#mysql_upgrade --user=root --password=$MYSQL_PASS
 
 MYSQL_BATCH="mysql --user=root --password=$MYSQL_PASS --batch"
 MYSQL_ADMIN="mysqladmin --user=root --password=$MYSQL_PASS"
