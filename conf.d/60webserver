@@ -53,9 +53,6 @@ ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 usermod -a -G git www-data
 
 
-
-
-mkdir /etc/nginx/include
 # Create file /etc/nginx/sites-available/gitlab
 sh -c "cat >/etc/nginx/sites-available/gitlab<<EOF
 upstream gitlab {
