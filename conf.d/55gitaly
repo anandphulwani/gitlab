@@ -13,6 +13,7 @@ echo "########################################">/dev/null 2>&1
 
 
 # Fetch Gitaly source with Git and compile with Go
+cd $GIT_HOME/gitlab
 exec_git "bundle exec rake \"gitlab:gitaly:install[$GIT_HOME/gitaly]\" RAILS_ENV=production"
 
 # Install Gitaly
