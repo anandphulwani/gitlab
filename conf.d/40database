@@ -52,6 +52,10 @@ $MYSQL_BATCH --execute "SET GLOBAL innodb_large_prefix = ON;"
 $MYSQL_BATCH --execute "SET GLOBAL log_bin_trust_function_creators = 1;"
 # GRANT ALL PRIVILEGES ON gitlabhq_production.* TO 'git'@'localhost';
 $MYSQL_BATCH --execute "grant all privileges on $DB_NAME.* to '$DB_USER'@localhost identified by '$DB_PASS'; flush privileges;"
+$MYSQL_BATCH --execute "show global variables like 'innodb%';"
+$MYSQL_BATCH --execute "show global variables like 'innodb_file_format';"
+$MYSQL_BATCH --execute "show global variables like 'innodb_file_per_table';"
+$MYSQL_BATCH --execute "show global variables like 'innodb_lar%';"
 
 cat >>/etc/mysql/my.cnf<<EOF
 
@@ -59,6 +63,7 @@ cat >>/etc/mysql/my.cnf<<EOF
 default-storage-engine = innodb
 log_bin_trust_function_creators = 1
 innodb_file_format = Barracuda
+innodb_file_per_table = 1
 innodb_large_prefix = 1
 EOF
 
