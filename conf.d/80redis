@@ -21,27 +21,3 @@ for i in development test production; do
     echo "$i: unix:/var/run/redis/redis.sock" >> /home/git/gitlab/config/resque.yml
 done
 
-# apt-get -y install redis-server
-# cp /etc/redis/redis.conf /etc/redis/redis.conf.orig
-# sed 's/^port .*/port 0/' /etc/redis/redis.conf.orig | sudo tee /etc/redis/redis.conf
-# echo 'unixsocket /var/run/redis/redis.sock' | sudo tee -a /etc/redis/redis.conf
-# echo 'unixsocketperm 770' | sudo tee -a /etc/redis/redis.conf
-# mkdir /var/run/redis
-# chown redis:redis /var/run/redis
-# chmod 755 /var/run/redis
-# echo 'd  /var/run/redis  0755  redis  redis  10d  -' | sudo tee -a /etc/tmpfiles.d/redis.conf
-# sudo service redis-server start
-
-# make Redis listen on Unix socket
-#echo 'include /etc/redis/unixsocket.conf' >> /etc/redis/redis.conf
-
-# allow git to use redis' socket
-# usermod -a -G redis $GIT_USER
-
-#for i in development test production; do
-#    echo "$i: unix:/var/run/redis/redis.sock" >> /home/git/gitlab/config/resque.yml
-#done
-
-# cd $GIT_HOME/gitlab
-# exec_git "bundle exec rake gitlab:shell:install REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production SKIP_STORAGE_VALIDATION=true"
-

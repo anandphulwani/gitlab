@@ -21,7 +21,6 @@ cp $GIT_HOME/gitlab/lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
 
 service nginx stop
 rm /etc/nginx/sites-enabled/default
-# rm /etc/nginx/conf.d/default.conf
 
 cp $GIT_HOME/gitlab/lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab
 ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab

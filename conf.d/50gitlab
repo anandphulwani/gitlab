@@ -13,8 +13,7 @@ echo "########################################">/dev/null 2>&1
 
 
 # download and checkout specified version
-# URL="https://github.com/gitlabhq/gitlabhq.git"
-URL="http://192.168.200.120/gitlab-admin/gitlabtest.git"
+URL="https://github.com/gitlabhq/gitlabhq.git"
 
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
 exec_git "git clone $URL -b $VERSION_GITLAB $GIT_HOME/gitlab"
@@ -166,7 +165,7 @@ exec_git "bundle install --deployment --without development test postgres aws ke
 exec_git "npm install"
 
 /etc/init.d/ssh start
-# /etc/init.d/redis-server start
+/etc/init.d/redis-server start
 
 exec_git "bundle exec rake \"gitlab:workhorse:install[$GIT_HOME/gitlab-workhorse]\" RAILS_ENV=production"
 
@@ -186,7 +185,7 @@ unset HTTP_PROXY
 
 # stop running services
 /etc/init.d/ssh stop
-# /etc/init.d/redis-server stop
+/etc/init.d/redis-server stop
 /etc/init.d/mysql stop
 
 # change ssh port configuration back

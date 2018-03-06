@@ -13,14 +13,15 @@ echo "########################################">/dev/null 2>&1
 
 cd $GIT_HOME/gitlab
 
+
+update-rc.d gitlab defaults
+update-rc.d gitlab enable
+
 service ssh start
 service redis-server start
 service nginx start
 service mysql start
 service gitlab start
-
-update-rc.d gitlab defaults
-update-rc.d gitlab enable
 
 exec_git "cd ~/gitlab && RAILS_ENV=production bin/background_jobs start"
 exec_git "bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production"

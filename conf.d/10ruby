@@ -19,25 +19,6 @@ sed -i '/ftp.us.debian.org\/debian testing main contrib non-free/d' /etc/apt/sou
 cat /etc/apt/sources.list
 apt-get update
 
-# mkdir /tmp/ruby && cd /tmp/ruby
-# curl --remote-name --progress https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.6.tar.gz
-# curl --remote-name --progress http://192.168.200.143/_removeit/ruby-2.3.6.tar.gz
-# echo '4e6a0f828819e15d274ae58485585fc8b7caace0  ruby-2.3.6.tar.gz' | shasum -c - && \
-# tar xzf ruby-2.3.6.tar.gz
-# cd ruby-2.3.6
-# ./configure --disable-install-rdoc
-# make
-# make install
-
-
-# install re2
-# git clone https://code.googlesource.com/re2
-# cd re2
-# make
-# make test
-# make install
-
-
 # install gems
 [ "$FAB_HTTP_PROXY" ] && export HTTP_PROXY=$FAB_HTTP_PROXY
 gem install bundler --no-ri --no-rdoc
