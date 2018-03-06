@@ -37,7 +37,6 @@ libre2-dev
 
 sudo
 
-libcurl4-openssl-dev
 libexpat1-dev
 gettext
 libz-dev
