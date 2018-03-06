@@ -116,8 +116,7 @@ EOF"
 
 
 # fetch and compile gitlab-workhorse
-# URL_WORKHORSE="https://gitlab.com/gitlab-org/gitlab-workhorse"
-URL_WORKHORSE="http://192.168.200.120/gitlab-admin/gitlab-workhorse.git"
+URL_WORKHORSE="https://gitlab.com/gitlab-org/gitlab-workhorse"
 exec_git "git clone $URL_WORKHORSE $GIT_HOME/gitlab-workhorse"
 cd $GIT_HOME/gitlab-workhorse
 exec_git "git checkout $VERSION_WORKHORSE"
